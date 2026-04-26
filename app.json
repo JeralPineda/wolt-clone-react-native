@@ -18,7 +18,8 @@
         "backgroundImage": "./src/assets/images/android-icon-background.png",
         "monochromeImage": "./src/assets/images/android-icon-monochrome.png"
       },
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.jeral495.wolt"
     },
     "web": {
       "output": "static",
