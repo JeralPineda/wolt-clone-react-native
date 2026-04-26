@@ -1,7 +1,10 @@
 import { AppleAuthButton } from "@/components/auth/apple-auth-button";
 import { GoogleAuthButton } from "@/components/auth/google-auth-button";
 import { Pressable } from "@/components/pressable";
+import { SmoothInfiniteScroll } from "@/components/smooth-infinite-scroll";
 import { Colors, Fonts } from "@/constants/theme";
+import { LinearGradient } from "expo-linear-gradient";
+import { Link } from "expo-router";
 import { Image, Linking, StyleSheet, Text, View } from "react-native";
 import Animated, { FadeInDown } from "react-native-reanimated";
 
@@ -12,13 +15,23 @@ export default function Index() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.infiniteScrollContainer}></View>
+      <View style={styles.infiniteScrollContainer}>
+        <View>
+          <SmoothInfiniteScroll scrollDirection="down" iconSet="set1" />
+        </View>
+        <View>
+          <SmoothInfiniteScroll scrollDirection="up" iconSet="set2" />
+        </View>
+        <View>
+          <SmoothInfiniteScroll scrollDirection="down" iconSet="set3" />
+        </View>
+        <LinearGradient colors={["transparent", "#fff"]} style={styles.gradientcontainer} />
+      </View>
 
       <View style={styles.contentContainer}>
         <Image source={require("@/assets/images/wolt-logo.png")} style={styles.brandLogo} />
-
         <Animated.Text entering={FadeInDown} style={styles.tagline}>
-          Almost everithing delivered
+          Almost everything delivered
         </Animated.Text>
 
         {/* Login buttons */}
@@ -26,13 +39,17 @@ export default function Index() {
           <Animated.View entering={FadeInDown.delay(100)}>
             <AppleAuthButton />
           </Animated.View>
+
           <Animated.View entering={FadeInDown.delay(200)}>
             <GoogleAuthButton />
           </Animated.View>
+
           <Animated.View entering={FadeInDown.delay(300)}>
-            <Pressable style={styles.otherButton}>
-              <Text style={styles.otherButtonText}>Other options</Text>
-            </Pressable>
+            <Link href={"/(app)/(public)/other-options"} asChild>
+              <Pressable style={styles.otherButton}>
+                <Text style={styles.otherButtonText}>Other options</Text>
+              </Pressable>
+            </Link>
           </Animated.View>
         </View>
 
@@ -62,6 +79,13 @@ const styles = StyleSheet.create({
     gap: 4,
     position: "relative",
     overflow: "hidden",
+  },
+  gradientcontainer: {
+    position: "absolute",
+    height: 200,
+    left: 0,
+    bottom: 0,
+    right: 0,
   },
   contentContainer: {
     flex: 1,
@@ -93,7 +117,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingVertical: 17,
     borderRadius: 12,
-    gap: 2,
+    gap: 4,
   },
   otherButtonText: {
     color: Colors.muted,
